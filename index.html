@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphics Showdown - Smarter Freelance Hiring</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2d3748;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger {
+            width: 25px;
+            height: 3px;
+            background: #2d3748;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-headline {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subheading {
+            font-size: 1.3rem;
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            background: #f8fafc;
+            padding: 100px 0;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 3rem;
+        }
+
+        .steps-container {
+            display: flex;
+            gap: 2rem;
+            justify-content: space-between;
+        }
+
+        .step-card {
+            flex: 1;
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .step-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .step-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-heading {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+
+        .step-description {
+            font-size: 0.95rem;
+            color: #718096;
+            line-height: 1.6;
+        }
+
+        /* Client/Freelancer Sections */
+        .dual-sections {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .sections-container {
+            display: flex;
+            gap: 2.5rem;
+            align-items: stretch;
+        }
+
+        .section-card {
+            flex: 1;
+            background: white;
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .section-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .section-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .clients-section .card-title {
+            color: #667eea;
+        }
+
+        .freelancers-section .card-title {
+            color: #764ba2;
+        }
+
+        .benefits-list {
+            list-style: none;
+            margin-bottom: 2.5rem;
+        }
+
+        .benefit-item {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .benefit-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .clients-section .benefit-icon {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .freelancers-section .benefit-icon {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+        }
+
+        .benefit-icon::before {
+            content: '✓';
+            color: white;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .benefit-text {
+            color: #4a5568;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .section-button {
+            display: inline-block;
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .clients-section .section-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .freelancers-section .section-button {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+        }
+
+        /* Demo Section */
+        .demo-section {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .demo-form {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .demo-form.animate {
+            opacity: 1;
+            transform: translateY(0);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            align-items: end;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .find-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 200px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .find-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+        }
+
+        .freelancer-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            transition: all 0.5s ease;
+            border-top: 4px solid;
+            border-image: linear-gradient(135deg, #667eea, #764ba2) 1;
+        }
+
+        .freelancer-card.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .freelancer-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .freelancer-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .freelancer-specialty {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            background: rgba(102, 126, 234, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .freelancer-experience {
+            color: #718096;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .freelancer-rate {
+            color: #10b981;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .rating {
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            margin-bottom: 1.5rem;
+        }
+
+        .star {
+            color: #fbbf24;
+            font-size: 1.2rem;
+        }
+
+        .hire-button {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .hire-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .timeline-container {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-50%);
+            border-radius: 2px;
+            width: 100%;
+        }
+
+        .timeline-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #059669);
+            border-radius: 2px;
+            width: 0;
+            transition: width 2s ease;
+        }
+
+        .timeline-items {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .timeline-item.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-icon {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .timeline-year {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-description {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 200px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-text {
+            color: #a0aec0;
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1001;
+        }
+
+        .scroll-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* Hiring Form Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 20000;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .hiring-modal {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideInUp 0.4s ease-out;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-subtitle {
+            color: #718096;
+            font-size: 1rem;
+        }
+
+        .modal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .field-label {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .field-input {
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .field-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .field-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .modal-button {
+            flex: 1;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .modal-button-primary {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .modal-button-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .modal-button-secondary {
+            background: #f7fafc;
+            color: #4a5568;
+            border: 2px solid #e2e8f0;
+        }
+
+        .modal-button-secondary:hover {
+            background: #edf2f7;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #a0aec0;
+            transition: color 0.2s ease;
+        }
+
+        .modal-close:hover {
+            color: #4a5568;
+        }
+
+        /* Button States */
+        .hire-button.hiring-in-progress {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+            color: white;
+        }
+
+        .hire-button.hired {
+            background: linear-gradient(135deg, #059669, #047857) !important;
+            color: white;
+        }
+
+        .reject-button {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            margin-left: 10px;
+        }
+
+        .reject-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.3);
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            max-width: 400px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            z-index: 10000;
+            animation: slideInRight 0.3s ease-out;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .notification-message {
+            flex: 1;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notification-close:hover {
+            opacity: 1;
+        }
+
+        .notification-error {
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            color: #dc2626;
+            border-left: 4px solid #dc2626;
+        }
+
+        .notification-success {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            color: #059669;
+            border-left: 4px solid #059669;
+        }
+
+        .notification-warning {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            color: #d97706;
+            border-left: 4px solid #d97706;
+        }
+
+        .notification-info {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            color: #2563eb;
+            border-left: 4px solid #2563eb;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero-headline {
+                font-size: 2.5rem;
+            }
+
+            .steps-container,
+            .sections-container {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .timeline-items {
+                flex-direction: column;
+                gap: 3rem;
+            }
+
+            .timeline-line {
+                left: 50%;
+                top: 0;
+                width: 4px;
+                height: 100%;
+                transform: translateX(-50%);
+            }
+
+            .section-container {
+                padding: 0 15px;
+            }
+
+            .notification {
+                right: 10px;
+                left: 10px;
+                max-width: calc(100vw - 20px);
+                top: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        <div class="scroll-progress"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Graphics Showdown</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#for-users">For Users</a></li>
+                <li><a href="#demo">Try Demo</a></li>
+                <li><a href="#future">Future</a></li>
+            </ul>
+            <div class="mobile-menu-toggle">
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-headline">Smarter Freelance Hiring Starts Here</h1>
+            <p class="hero-subheading">Graphics Showdown connects clients with the right freelancers — fast, fairly, and automatically.</p>
+            <a href="#demo" class="cta-button">See How It Works</a>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="section-container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 class="step-heading">Submit Your Project</h3>
+                    <p class="step-description">Tell us about your project requirements, timeline, and budget. Our smart system analyzes your needs.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 class="step-heading">Get Matched Instantly</h3>
+                    <p class="step-description">Our AI algorithm connects you with the top 3 freelancers who perfectly match your project criteria.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 class="step-heading">Review Proposals</h3>
+                    <p class="step-description">Compare portfolios, rates, and timelines from pre-screened professionals. Make informed decisions quickly.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3 class="step-heading">Start Collaboration</h3>
+                    <p class="step-description">Choose your freelancer and begin working together with built-in project management tools and secure payments.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">5</div>
+                    <h3 class="step-heading">Deliver & Scale</h3>
+                    <p class="step-description">Receive your completed project on time and build lasting relationships with top-tier creative professionals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- For Users Section -->
+    <section id="for-users" class="dual-sections">
+        <div class="section-container">
+            <div class="sections-container">
+                <div class="section-card clients-section">
+                    <h2 class="card-title">For Clients</h2>
+                    <ul class="benefits-list">
+                        <li class="benefit-item">
+                            <div class="benefit-icon"></div>
+                            <div class="benefit-text">Get matched with pre-vetted freelancers in under 24 hours using our AI-powered matching system</div>
+                        </li>
+                        <li class="benefit-item">
+                            <div class="benefit-icon"></div>
+                            <div class="benefit-text">Pay only when satisfied with secure milestone-based payments and built-in project management tools</div>
+                        </li>
+                        <li class="benefit-item">
+                            <div class="benefit-icon"></div>
+                            <div class="benefit-text">Access top-tier creative talent from our curated network of professionals with verified portfolios</div>
+                        </li>
+                    </ul>
+                    <a href="#demo" class="section-button">Try Matching Flow</a>
+                </div>
+
+                <div class="section-card freelancers-section">
+                    <h2 class="card-title">For Freelancers</h2>
+                    <ul class="benefits-list">
+                        <li class="benefit-item">
+                            <div class="benefit-icon"></div>
+                            <div class="benefit-text">Receive high-quality project matches based on your skills, experience, and availability preferences</div>
+                        </li>
+                        <li class="benefit-item">
+                            <div class="benefit-icon"></div>
+                            <div class="benefit-text">Enjoy guaranteed payments with our secure escrow system and transparent pricing structure</div>
+                        </li>
+                        <li class="benefit-item">
+                            <div class="benefit-icon"></div>
+                            <div class="benefit-text">Build your reputation through our rating system and gain access to premium clients and projects</div>
+                        </li>
+                    </ul>
+                    <a href="#demo" class="section-button">Join Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="demo-section">
+        <div class="section-container">
+            <h2 class="section-title">Try Our Matching System</h2>
+            <p style="text-align: center; color: #718096; margin-bottom: 3rem; font-size: 1.1rem;">See how quickly we can find the perfect freelancer for your project</p>
+            
+            <div class="demo-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="jobRole">Job Role</label>
+                        <select class="form-select" id="jobRole">
+                            <option value="">Select Job Role</option>
+                            <option value="logo-design">Logo Design</option>
+                            <option value="web-design">Web Design</option>
+                            <option value="branding">Brand Identity</option>
+                            <option value="illustration">Illustration</option>
+                            <option value="ui-ux">UI/UX Design</option>
+                            <option value="content-writing">Content Writing</option>
+                            <option value="social-media">Social Media Design</option>
+                            <option value="video-editing">Video Editing</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="budget">Project Budget</label>
+                        <select class="form-select" id="budget">
+                            <option value="">Select Budget</option>
+                            <option value="50">$50 - $100</option>
+                            <option value="100">$100 - $250</option>
+                            <option value="200">$250 - $500</option>
+                            <option value="500">$500 - $1000</option>
+                            <option value="1000">$1000+</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="skill">Experience Level</label>
+                        <select class="form-select" id="skill">
+                            <option value="">Select Experience</option>
+                            <option value="beginner">Entry Level (0-2 years)</option>
+                            <option value="intermediate">Intermediate (2-5 years)</option>
+                            <option value="expert">Expert (5+ years)</option>
+                        </select>
+                    </div>
+                    
+                    <button class="find-button" id="findButton">
+                        <span class="loading-spinner" id="loadingSpinner"></span>
+                        <span id="buttonText">Find My Freelancer</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="freelancer-card" id="freelancerCard">
+                <div class="freelancer-avatar" id="freelancerAvatar">JD</div>
+                <div class="freelancer-name" id="freelancerName">John Doe</div>
+                <div class="freelancer-specialty" id="freelancerSpecialty">Logo Design Specialist</div>
+                <div class="freelancer-experience" id="freelancerExperience">5+ years experience</div>
+                <div class="freelancer-rate" id="freelancerRate">$75/hour</div>
+                <div class="rating">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+                <button class="hire-button" onclick="handleHire()">Hire John</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Scope Timeline -->
+    <section id="future" class="timeline-section">
+        <div class="section-container">
+            <h2 class="section-title" style="color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Our Future Scope</h2>
+            
+            <div class="timeline-container">
+                <div class="timeline-line">
+                    <div class="timeline-progress"></div>
+                </div>
+                
+                <div class="timeline-items">
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="#667eea">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                        </div>
+                        <div class="timeline-year">Year 1</div>
+                        <div class="timeline-title">Launch with Graphic Designers</div>
+                        <div class="timeline-description">Build core platform with vetted graphic designers and AI-powered matching system</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="#667eea">
+                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/>
+                            </svg>
+                        </div>
+                        <div class="timeline-year">Year 2</div>
+                        <div class="timeline-title">Add Web Developers and Writers</div>
+                        <div class="timeline-description">Expand talent pool to include web developers and content writers with specialized matching</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="#667eea">
+                                <path d="M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-2 20h-4v-1h4v1zm3.25-3H6.75V4h10.5v14z"/>
+                            </svg>
+                        </div>
+                        <div class="timeline-year">Year 3</div>
+                        <div class="timeline-title">Mobile App + Learning Hub</div>
+                        <div class="timeline-description">Launch mobile app with integrated learning platform for skill development and certification</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="#667eea">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                            </svg>
+                        </div>
+                        <div class="timeline-year">Year 4</div>
+                        <div class="timeline-title">Hybrid Learning Centers in Cities</div>
+                        <div class="timeline-description">Open physical co-working spaces with online integration for enhanced collaboration</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">Graphics Showdown</div>
+            <p class="footer-text">Connecting creative talent with innovative projects through intelligent matching.</p>
+            <div class="social-links">
+                <a href="#" class="social-link">📧</a>
+                <a href="#" class="social-link">📱</a>
+                <a href="#" class="social-link">🔗</a>
+                <a href="#" class="social-link">📝</a>
+            </div>
+            <p style="color: #718096; font-size: 0.9rem;">&copy; 2025 Graphics Showdown. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Hiring Modal -->
+    <div class="modal-overlay" id="hiringModal">
+        <div class="hiring-modal">
+            <button class="modal-close" onclick="closeHiringModal()">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title">Hire <span id="modalFreelancerName">Freelancer</span></h2>
+                <p class="modal-subtitle">Fill in the details to proceed with hiring</p>
+            </div>
+            <form class="modal-form" id="hiringForm">
+                <div class="form-field">
+                    <label class="field-label" for="clientName">Your Name *</label>
+                    <input type="text" class="field-input" id="clientName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-field">
+                    <label class="field-label" for="companyName">Company Name *</label>
+                    <input type="text" class="field-input" id="companyName" placeholder="Enter your company name" required>
+                </div>
+                <div class="form-field">
+                    <label class="field-label" for="jobDescription">Job Description *</label>
+                    <textarea class="field-input field-textarea" id="jobDescription" placeholder="Describe your project requirements, timeline, and expectations..." required></textarea>
+                </div>
+                <div class="form-field">
+                    <label class="field-label" for="offerPrice">Offer Price *</label>
+                    <input type="text" class="field-input" id="offerPrice" placeholder="e.g., $500 or $50/hour" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="modal-button modal-button-secondary" onclick="closeHiringModal()">Cancel</button>
+                    <button type="submit" class="modal-button modal-button-primary">Send Hire Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancer Dashboard - Graphics Showdown</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .dashboard-header {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-subtitle {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        .hiring-requests {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+        }
+
+        .request-card {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .request-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .request-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .client-info {
+            flex: 1;
+        }
+
+        .client-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.2rem;
+        }
+
+        .company-name {
+            color: #667eea;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .request-time {
+            color: #718096;
+            font-size: 0.8rem;
+        }
+
+        .offer-price {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .job-description {
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .request-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .action-button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            flex: 1;
+        }
+
+        .accept-button {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .accept-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .reject-button {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+        }
+
+        .reject-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.3);
+        }
+
+        .no-requests {
+            text-align: center;
+            padding: 3rem;
+            color: #718096;
+        }
+
+        .no-requests-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: rgba(251, 191, 36, 0.1);
+            color: #d97706;
+        }
+
+        .status-accepted {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+
+        .status-rejected {
+            background: rgba(220, 38, 38, 0.1);
+            color: #dc2626;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #764ba2;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            max-width: 400px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            z-index: 10000;
+            animation: slideInRight 0.3s ease-out;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .notification-message {
+            flex: 1;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notification-close:hover {
+            opacity: 1;
+        }
+
+        .notification-success {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            color: #059669;
+            border-left: 4px solid #059669;
+        }
+
+        .notification-error {
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            color: #dc2626;
+            border-left: 4px solid #dc2626;
+        }
+
+        .notification-warning {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            color: #d97706;
+            border-left: 4px solid #d97706;
+        }
+
+        .notification-info {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            color: #2563eb;
+            border-left: 4px solid #2563eb;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .request-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .request-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <a href="index.html" class="back-link">← Back to Main Site</a>
+        
+        <div class="dashboard-header">
+            <h1 class="header-title">Freelancer Dashboard</h1>
+            <p class="header-subtitle">Manage your hiring requests and project opportunities</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="pendingCount">0</div>
+                <div class="stat-label">Pending Requests</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="acceptedCount">0</div>
+                <div class="stat-label">Accepted Projects</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalEarnings">$0</div>
+                <div class="stat-label">Total Earnings</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="completedProjects">0</div>
+                <div class="stat-label">Completed Projects</div>
+            </div>
+        </div>
+
+        <div class="hiring-requests">
+            <h2 class="section-title">Hiring Requests</h2>
+            <div id="requestsList">
+                <div class="no-requests">
+                    <div class="no-requests-icon">📋</div>
+                    <h3>No hiring requests yet</h3>
+                    <p>When clients send you hiring requests, they'll appear here.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Notification utility
+        const Notification = {
+            show(message, type = 'info', duration = 5000) {
+                const notification = document.createElement('div');
+                notification.className = `notification notification-${type}`;
+                notification.innerHTML = `
+                    <div class="notification-content">
+                        <span class="notification-message">${message}</span>
+                        <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+                    </div>
+                `;
+
+                document.body.appendChild(notification);
+
+                if (duration > 0) {
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.remove();
+                        }
+                    }, duration);
+                }
+            },
+
+            error(message, duration = 7000) {
+                this.show(message, 'error', duration);
+            },
+
+            success(message, duration = 4000) {
+                this.show(message, 'success', duration);
+            },
+
+            warning(message, duration = 5000) {
+                this.show(message, 'warning', duration);
+            },
+
+            info(message, duration = 5000) {
+                this.show(message, 'info', duration);
+            }
+        };
+
+        // Load hiring requests and freelancer stats
+        function loadDashboard() {
+            const hiringRequests = JSON.parse(localStorage.getItem('hiringRequests') || '[]');
+            const freelancerStats = JSON.parse(localStorage.getItem('freelancerStats') || '{}');
+            
+            updateStats(hiringRequests, freelancerStats);
+            displayHiringRequests(hiringRequests);
+        }
+
+        function updateStats(requests, stats) {
+            const pendingRequests = requests.filter(r => r.status === 'pending');
+            const acceptedRequests = requests.filter(r => r.status === 'accepted');
+            
+            document.getElementById('pendingCount').textContent = pendingRequests.length;
+            document.getElementById('acceptedCount').textContent = acceptedRequests.length;
+            document.getElementById('totalEarnings').textContent = stats.totalEarnings || '$0';
+            document.getElementById('completedProjects').textContent = stats.completedProjects || '0';
+        }
+
+        function displayHiringRequests(requests) {
+            const requestsList = document.getElementById('requestsList');
+            
+            if (requests.length === 0) {
+                requestsList.innerHTML = `
+                    <div class="no-requests">
+                        <div class="no-requests-icon">📋</div>
+                        <h3>No hiring requests yet</h3>
+                        <p>When clients send you hiring requests, they'll appear here.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Sort requests by timestamp (newest first)
+            const sortedRequests = requests.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            
+            requestsList.innerHTML = sortedRequests.map(request => `
+                <div class="request-card" data-request-id="${request.id}">
+                    <div class="request-header">
+                        <div class="client-info">
+                            <div class="client-name">${request.clientName}</div>
+                            <div class="company-name">${request.companyName}</div>
+                            <div class="request-time">${formatDate(request.timestamp)}</div>
+                            <span class="status-badge status-${request.status}">${request.status}</span>
+                        </div>
+                        <div class="offer-price">${request.offerPrice}</div>
+                    </div>
+                    <div class="job-description">${request.jobDescription}</div>
+                    ${request.status === 'pending' ? `
+                        <div class="request-actions">
+                            <button class="action-button accept-button" onclick="acceptRequest('${request.id}')">
+                                Accept Project
+                            </button>
+                            <button class="action-button reject-button" onclick="rejectRequest('${request.id}')">
+                                Decline
+                            </button>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        function formatDate(timestamp) {
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diffInHours = (now - date) / (1000 * 60 * 60);
+            
+            if (diffInHours < 1) {
+                return 'Just now';
+            } else if (diffInHours < 24) {
+                return `${Math.floor(diffInHours)} hours ago`;
+            } else {
+                return date.toLocaleDateString();
+            }
+        }
+
+        function acceptRequest(requestId) {
+            const hiringRequests = JSON.parse(localStorage.getItem('hiringRequests') || '[]');
+            const freelancerStates = JSON.parse(localStorage.getItem('freelancerStates') || '{}');
+            
+            // Find the request
+            const requestIndex = hiringRequests.findIndex(r => r.id === requestId);
+            if (requestIndex === -1) return;
+            
+            const request = hiringRequests[requestIndex];
+            
+            // Check if freelancer is already booked
+            const hasAcceptedProject = hiringRequests.some(r => r.status === 'accepted' && r.freelancerName === request.freelancerName);
+            if (hasAcceptedProject) {
+                Notification.warning('You can only accept one project at a time. Complete your current project first.');
+                return;
+            }
+            
+            // Update request status
+            hiringRequests[requestIndex].status = 'accepted';
+            
+            // Update freelancer state to booked
+            freelancerStates[request.freelancerId] = 'booked';
+            
+            // Reject all other pending requests for this freelancer
+            hiringRequests.forEach((r, index) => {
+                if (index !== requestIndex && r.status === 'pending' && r.freelancerName === request.freelancerName) {
+                    r.status = 'rejected';
+                }
+            });
+            
+            // Save updated data
+            localStorage.setItem('hiringRequests', JSON.stringify(hiringRequests));
+            localStorage.setItem('freelancerStates', JSON.stringify(freelancerStates));
+            
+            // Refresh dashboard
+            loadDashboard();
+            
+            Notification.success(`Project accepted! ${request.clientName} has been notified and the project is now active.`);
+        }
+
+        function rejectRequest(requestId) {
+            if (!confirm('Are you sure you want to decline this project? This action cannot be undone.')) {
+                return;
+            }
+            
+            const hiringRequests = JSON.parse(localStorage.getItem('hiringRequests') || '[]');
+            
+            // Find and update the request
+            const requestIndex = hiringRequests.findIndex(r => r.id === requestId);
+            if (requestIndex === -1) return;
+            
+            hiringRequests[requestIndex].status = 'rejected';
+            
+            // Save updated data
+            localStorage.setItem('hiringRequests', JSON.stringify(hiringRequests));
+            
+            // Refresh dashboard
+            loadDashboard();
+            
+            Notification.info('Project declined. The client has been notified.');
+        }
+
+        // Load dashboard on page load
+        window.addEventListener('load', loadDashboard);
+
+        // Function to complete a project (for demo purposes)
+        function completeProject(clientName) {
+            const hiringRequests = JSON.parse(localStorage.getItem('hiringRequests') || '[]');
+            const freelancerStates = JSON.parse(localStorage.getItem('freelancerStates') || '{}');
+            const freelancerStats = JSON.parse(localStorage.getItem('freelancerStats') || '{}');
+            
+            // Find the accepted project
+            const projectIndex = hiringRequests.findIndex(r => 
+                r.status === 'accepted' && r.clientName === clientName
+            );
+            
+            if (projectIndex === -1) return;
+            
+            const project = hiringRequests[projectIndex];
+            
+            // Update project status to completed
+            hiringRequests[projectIndex].status = 'completed';
+            
+            // Free up the freelancer
+            delete freelancerStates[project.freelancerId];
+            
+            // Update freelancer stats
+            freelancerStats.completedProjects = (freelancerStats.completedProjects || 0) + 1;
+            
+            // Parse and add earnings (simple extraction from offer price)
+            const earnings = project.offerPrice.match(/\$(\d+)/);
+            if (earnings) {
+                const currentEarnings = parseInt((freelancerStats.totalEarnings || '$0').replace('$', '').replace(',', '')) || 0;
+                freelancerStats.totalEarnings = '$' + (currentEarnings + parseInt(earnings[1])).toLocaleString();
+            }
+            
+            // Save updated data
+            localStorage.setItem('hiringRequests', JSON.stringify(hiringRequests));
+            localStorage.setItem('freelancerStates', JSON.stringify(freelancerStates));
+            localStorage.setItem('freelancerStats', JSON.stringify(freelancerStats));
+            
+            // Refresh dashboard
+            loadDashboard();
+            
+            Notification.success(`Project with ${clientName} completed successfully! You're now available for new projects.`);
+        }
+
+        // Add complete project buttons to accepted projects
+        function addCompleteProjectButtons() {
+            const acceptedCards = document.querySelectorAll('.request-card');
+            acceptedCards.forEach(card => {
+                const statusBadge = card.querySelector('.status-accepted');
+                if (statusBadge && !card.querySelector('.complete-project-btn')) {
+                    const clientName = card.querySelector('.client-name').textContent;
+                    const actionsDiv = document.createElement('div');
+                    actionsDiv.className = 'request-actions';
+                    actionsDiv.innerHTML = `
+                        <button class="action-button accept-button complete-project-btn" onclick="completeProject('${clientName}')">
+                            Complete Project
+                        </button>
+                    `;
+                    card.appendChild(actionsDiv);
+                }
+            });
+        }
+
+        // Update displayHiringRequests to include complete project buttons
+        const originalDisplayHiringRequests = displayHiringRequests;
+        displayHiringRequests = function(requests) {
+            originalDisplayHiringRequests(requests);
+            setTimeout(addCompleteProjectButtons, 100);
+        };
+
+        // Refresh dashboard every 30 seconds to check for new requests
+        setInterval(loadDashboard, 30000);
+    </script>
+</body>
+</html>
